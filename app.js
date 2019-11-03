@@ -39,6 +39,26 @@ function BingoCard(){
     this.gridColumnTemplate = $('<div class="col">').append($('<div class="row flex-column">'));
     this.gridItemTemplate = $('<div class="col border border-black" style="padding-top:'+(size*2)+'px; padding-bottom:'+(size*2)+'px; font-size:'+size+'px">');
 
+    // look for a card in firebase, or make a new one
+    let inFirebase = false;
+
+    if (!inFirebase) {
+        this.generateNewCard();
+    }
+}
+BingoCard.prototype.render = function() {
+    let self = this;
+    this.card.forEach(function(column){
+        const gridColumn = self.gridColumnTemplate.clone();
+        column.forEach(function(item){
+            let gridItem = self.gridItemTemplate.clone();
+            gridItem.text(item);
+            gridColumn.children().eq(0).append(gridItem);
+        });
+        self.container.append(gridColumn);
+    });
+}
+BingoCard.prototype.generateNewCard = function () {
     for (let i = 0; i < 5; i++) {
         let row = [];
         for (let j = 0; j < 5; j++) {
@@ -56,19 +76,6 @@ function BingoCard(){
     }
     // add the free space
     this.card[2][2] = 'Free Space';
-    // send up to firebase?
-}
-BingoCard.prototype.render = function() {
-    let self = this;
-    this.card.forEach(function(column){
-        const gridColumn = self.gridColumnTemplate.clone();
-        column.forEach(function(item){
-            let gridItem = self.gridItemTemplate.clone();
-            gridItem.text(item);
-            gridColumn.children().eq(0).append(gridItem);
-        });
-        self.container.append(gridColumn);
-    });
 }
 
 
@@ -77,3 +84,8 @@ const numberList = new BingoList();
 numberList.render();
 
 const myCard = new BingoCard();
+myCard.render();
+
+// need to be able to daub a card.
+// need to be able to call bingo.
+// need to be able to call a number
