@@ -3,8 +3,59 @@
     <head>
         <meta charset="utf-8">
         <title>BINGO</title>
+        <!-- Bootstrap 4 -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <h1>HELLO BINGO</h1>
+        <div class="mainContianer">
+            <div class="row my-3">
+                <div class="col" style="font-family: monospace;" id="listContainer">
+
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col" id="lastCalled">
+
+                </div>
+            </div>
+            <div class="row justify-content-around my-3">
+                <div class="col-8">
+                    <div class="row text-center" id="cardContainer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+             https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyBimxqgpRNP6uHEHMiL2trmh3U-laTIye8",
+                authDomain: "bingo-fca63.firebaseapp.com",
+                databaseURL: "https://bingo-fca63.firebaseio.com",
+                projectId: "bingo-fca63",
+                storageBucket: "bingo-fca63.appspot.com",
+                messagingSenderId: "688440790891",
+                appId: "1:688440790891:web:3bcf81a949e63eaba8062e"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+        </script>
+
+        <!-- JQuery and then bootstrap js -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="./app.js"></script>
     </body>
+
 </html>

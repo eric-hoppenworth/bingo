@@ -1,0 +1,4 @@
+.btn.bingo-list-number.active {
+    color: white !important;
+    background-color: var(--primary) !important;
+}
