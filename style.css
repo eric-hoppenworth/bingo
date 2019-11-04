@@ -2,3 +2,20 @@
     color: white !important;
     background-color: var(--primary) !important;
 }
+.bingo-cell {
+    padding-top: 40px;
+    padding-bottom:40px;
+    font-size: 20px;
+    user-select: none;
+}
+.bingo-cell[data-daubed='1']:after {
+    background-color: aliceblue;
+    content: ' ';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 50%;
+}
