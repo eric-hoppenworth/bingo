@@ -11,42 +11,16 @@ function BingoList(user){
     this.container = $('#listContainer');
     let self = this;
 
-    // firebase listener for the 'called' collection
-    // this is called once on load, and any time a value is updated, from ANY source.
-    db.ref('called/').on('value', function(snapshot){
-        self.called = snapshot.val();
-        self.unmarkAll();
-        if (self.called) {
-            self.called.forEach(function(item){
-                self.markNumber(item);
-            });
-        } else {
-            self.called = [];
-        }
-        if (self.called.length) {
-            let number = self.called[self.called.length - 1];
-            let letter = self.letters[Math.floor((number-1)/15)];
-            $("#lastCalled").text(letter+"-"+number);
-        } else {
-            $("#lastCalled").text('');
-        }
-    });
-    db.ref('winner/').on('value', function(snapshot){
-        if (snapshot.val() && snapshot.val().name) {
-            // print the winner
-            $('#winner').text(snapshot.val().name);
-        } else {
-            // empty the winner
-            $('#winner').text('');
-        }
-    });
+    // FIREBASE TODO: update the top 'buttons' when `called` collection is updated
+    // also, update 'last called' section with the last number called
+
+    // FIREBASE TODO: update the winner screen when the winner changes
 
     // listener for calling numbers
     $('body').on('click', '#callBtn', function() {
         self.callNewNumber();
     });
     // listener to clear numbers
-    // TODO this should also clear out the winner
     $('body').on('click', '#clearBtn', function() {
         self.clearNumbers();
     });
@@ -82,9 +56,7 @@ BingoList.prototype.unmarkAll = function(value) {
 };
 // firebase updating
 BingoList.prototype.clearNumbers = function() {
-    db.ref('called/').set([]);
-    db.ref('winner/').set({});
-
+    // FIREBASE TODO: clear called numbers and clear the winner
 };
 // firebase updating
 BingoList.prototype.callNewNumber = function() {
@@ -97,7 +69,7 @@ BingoList.prototype.callNewNumber = function() {
         number = Math.floor(Math.random()*75 + 1);
     }
     this.called.push(number);
-    db.ref('called/').set(this.called);
+    // FIREBASE TODO: update the called list
 };
 
 // game logic for win condition.
@@ -119,7 +91,7 @@ BingoList.prototype.checkCard = function(bingoCard) {
             }
         }
         if (matchedItems === 5) {
-            db.ref('/winner').set({name: user.email});
+            // FIREBASE TODO: update the winner with the user's email address
             return true;
         }
     }
@@ -135,7 +107,7 @@ BingoList.prototype.checkCard = function(bingoCard) {
             }
         }
         if (matchedItems === 5) {
-            db.ref('/winner').set({name: user.email});
+            // FIREBASE TODO: update the winner with the user's email address
             return true;
         }
     }
@@ -149,7 +121,7 @@ BingoList.prototype.checkCard = function(bingoCard) {
             }
         }
         if (matchedItems === 5) {
-            db.ref('winner/').set({name: user.email});
+            // FIREBASE TODO: update the winner with the user's email address
             return true;
         }
     }
@@ -164,7 +136,7 @@ BingoList.prototype.checkCard = function(bingoCard) {
             }
         }
         if (matchedItems === 5) {
-            db.ref('/winner').set({name: user.email});
+            // FIREBASE TODO: update the winner with the user's email address
             return true;
         }
     }
@@ -182,19 +154,7 @@ function BingoCard(user, list){
     this.gridColumnTemplate = $('<div class="col">').append($('<div class="row flex-column">'));
     this.gridItemTemplate = $('<div class="col border border-black bingo-cell">').attr('data-daubed', 0);
 
-    // look for a card in firebase, or make a new one
-    // this card doesn't recieve updates, since we daub only in browser memory.
-    db.ref('users/'+user.uid).once('value').then(function(snapshot){
-        if (!snapshot.val() || !snapshot.val().card) {
-            self.generateNewCard();
-            db.ref('users/'+user.uid).set({
-                card: self.card
-            });
-        } else {
-            self.card = snapshot.val().card;
-            self.render();
-        }
-    });
+    // FIREBASE TODO: check firebase for a card, if there is none, create a new one
 
     // daub a card.
     $('body').on('click', ".bingo-cell", function(){
@@ -257,17 +217,10 @@ firebase.auth().onAuthStateChanged(function(user) {
         numberList.render();
         myCard = new BingoCard(user, numberList);
 
-        // render the card any time it is changed.
-        db.ref('users/'+user.uid+'/card').on('value', function(snapshot){
-            myCard.render();
-        });
+        // FIREBASE TODO: render the user's bingo card anytime it changes
 
-        // one time, after authentication is verified, conditionally print the call and clear buttons
-        db.ref('users/'+user.uid).once('value').then(function(snapshot){
-            if (snapshot.val() && snapshot.val().admin) {
-                numberList.container.append(adminButtons);
-            }
-        });
+        // FIREBASE TODO: check the logged in user for 'admin' property and conditionally render the buttons
+        
 
     } else {
         window.location = "./signin.html";
