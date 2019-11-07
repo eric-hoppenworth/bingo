@@ -220,7 +220,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         // FIREBASE TODO: render the user's bingo card anytime it changes
 
         // FIREBASE TODO: check the logged in user for 'admin' property and conditionally render the buttons
-        
 
     } else {
         window.location = "./signin.html";
