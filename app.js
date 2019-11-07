@@ -149,7 +149,7 @@ BingoList.prototype.checkCard = function(bingoCard) {
             }
         }
         if (matchedItems === 5) {
-            db.ref('winner/').set({name: user.email});
+            db.ref('winner/').set({name: bingoCard.user.email});
             return true;
         }
     }
@@ -164,7 +164,7 @@ BingoList.prototype.checkCard = function(bingoCard) {
             }
         }
         if (matchedItems === 5) {
-            db.ref('/winner').set({name: user.email});
+            db.ref('/winner').set({name: bingoCard.user.email});
             return true;
         }
     }
