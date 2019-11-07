@@ -83,7 +83,7 @@ BingoList.prototype.unmarkAll = function(value) {
 // firebase updating
 BingoList.prototype.clearNumbers = function() {
     db.ref('called/').set([]);
-    db.ref('winner/').set({});
+    db.ref('winner/').set({name:''});
 
 };
 // firebase updating
@@ -149,7 +149,7 @@ BingoList.prototype.checkCard = function(bingoCard) {
             }
         }
         if (matchedItems === 5) {
-            db.ref('winner/').set({name: bingoCard.user.email});
+            db.ref('/winner').set({name: bingoCard.user.email});
             return true;
         }
     }
